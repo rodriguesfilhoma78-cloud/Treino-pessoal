@@ -1,0 +1,22 @@
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+.env
+ios/
+android/
+
+# editor / sistema
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+
+# build e tooling
+*.tsbuildinfo
+coverage/
+.env.*
+!.env.example

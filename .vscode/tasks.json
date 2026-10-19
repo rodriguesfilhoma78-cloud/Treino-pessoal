@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Expo: iniciar",
+      "type": "shell",
+      "command": "npm start",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Expo: iniciar com túnel",
+      "type": "shell",
+      "command": "npx expo start --tunnel",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Verificar tipos (tsc)",
+      "type": "shell",
+      "command": "npm run typecheck",
+      "problemMatcher": ["$tsc"],
+      "group": "test"
+    },
+    {
+      "label": "Verificar formatação",
+      "type": "shell",
+      "command": "npm run format:check",
+      "problemMatcher": []
+    }
+  ]
+}
