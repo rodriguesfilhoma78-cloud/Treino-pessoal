@@ -3,7 +3,7 @@
 App pessoal de registro de treino de musculação. Funciona offline: todos os dados ficam
 no SQLite local do aparelho, sem backend e sem conta.
 
-Stack: **Expo SDK 51 · React Native 0.74 · TypeScript (strict) · expo-sqlite · React Navigation**.
+Stack: **Expo SDK 58 · React Native 0.88 · React 19 · TypeScript (strict) · expo-sqlite · React Navigation 7**.
 
 ## Funcionalidades
 
@@ -29,9 +29,9 @@ npm start
 Escaneie o QR code com o Expo Go (Android) ou com a câmera (iPhone). Celular e computador
 precisam estar na mesma rede; se não conectar, use `npm run start:tunnel`.
 
-> **Versão do Expo Go:** o projeto usa o SDK 51. Se o Expo Go da loja for de uma versão mais
-> nova, ele recusa o projeto. No Android dá para instalar o Expo Go do SDK 51 em
-> <https://expo.dev/go>; no iPhone é preciso atualizar o SDK do projeto.
+> **Versão do Expo Go:** o projeto usa o SDK 58, o mesmo do Expo Go atual da loja. Quando o
+> Expo lançar um SDK novo e o Expo Go disser que o projeto é incompatível, atualize com
+> `npx expo install expo@latest` seguido de `npx expo install --fix` e rode `npm run check`.
 
 > **Web:** `npm run web` abre a interface, mas o `expo-sqlite` não funciona no navegador, então
 > as telas que leem o banco falham. Use celular ou emulador.
