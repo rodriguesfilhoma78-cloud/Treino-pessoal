@@ -156,7 +156,7 @@ export default function SessaoScreen() {
 
         <TouchableOpacity
           style={styles.botaoFinalizar}
-          onPress={() => navigation.navigate("ListaTreinos")}
+          onPress={() => navigation.popTo("ListaTreinos")}
         >
           <Text style={styles.botaoFinalizarTexto}>Finalizar treino</Text>
         </TouchableOpacity>

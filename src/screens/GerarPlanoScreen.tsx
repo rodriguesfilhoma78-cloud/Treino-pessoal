@@ -55,7 +55,7 @@ export default function GerarPlanoScreen() {
       }
 
       Alert.alert("Plano salvo", `${plano.dias.length} treinos adicionados em Meus Treinos.`);
-      navigation.navigate("ListaTreinos");
+      navigation.popTo("ListaTreinos");
     } catch (e) {
       Alert.alert("Erro ao salvar o plano", String(e));
     } finally {
