@@ -1,14 +1,17 @@
 import * as SQLite from "expo-sqlite";
 
 /**
- * Ponto único de acesso ao banco. Nenhum outro arquivo deve chamar
- * SQLite.openDatabaseSync diretamente — sempre passe por getDb().
+ * Ponto único de acesso ao banco. Nenhum outro arquivo deve abrir o SQLite
+ * diretamente — sempre passe por getDb().
+ *
+ * Abre de forma assíncrona: na web a API síncrona bloqueia a página esperando
+ * o worker do SQLite e estoura "Sync operation timeout".
  */
-let db: SQLite.SQLiteDatabase | null = null;
+let db: Promise<SQLite.SQLiteDatabase> | null = null;
 
-export function getDb(): SQLite.SQLiteDatabase {
+export function getDb(): Promise<SQLite.SQLiteDatabase> {
   if (!db) {
-    db = SQLite.openDatabaseSync("befit.db");
+    db = SQLite.openDatabaseAsync("befit.db");
   }
   return db;
 }
@@ -70,7 +73,7 @@ const EXERCICIOS_SEED: Array<[string, string]> = [
  * na primeira execução. Chamar uma vez, no boot do app.
  */
 export async function inicializarBanco(): Promise<void> {
-  const database = getDb();
+  const database = await getDb();
   await database.execAsync(SCHEMA);
 
   const [{ total }] = await database.getAllAsync<{ total: number }>(

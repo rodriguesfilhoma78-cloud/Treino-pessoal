@@ -3,7 +3,7 @@ import { Exercicio } from "@/types";
 
 export const exercicioRepository = {
   async listar(): Promise<Exercicio[]> {
-    const db = getDb();
+    const db = await getDb();
     return db.getAllAsync<Exercicio>(
       `SELECT id, nome, grupo_muscular as grupoMuscular
        FROM exercicios ORDER BY grupo_muscular, nome`
@@ -11,7 +11,7 @@ export const exercicioRepository = {
   },
 
   async criar(nome: string, grupoMuscular: string): Promise<number> {
-    const db = getDb();
+    const db = await getDb();
     const result = await db.runAsync(
       "INSERT INTO exercicios (nome, grupo_muscular) VALUES (?, ?)",
       nome,

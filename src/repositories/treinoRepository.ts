@@ -3,12 +3,12 @@ import { Exercicio, Treino, TreinoComExercicios } from "@/types";
 
 export const treinoRepository = {
   async listar(): Promise<Treino[]> {
-    const db = getDb();
+    const db = await getDb();
     return db.getAllAsync<Treino>("SELECT id, nome FROM treinos ORDER BY nome");
   },
 
   async buscarComExercicios(treinoId: number): Promise<TreinoComExercicios | null> {
-    const db = getDb();
+    const db = await getDb();
     const treino = await db.getFirstAsync<Treino>(
       "SELECT id, nome FROM treinos WHERE id = ?",
       treinoId
@@ -29,7 +29,7 @@ export const treinoRepository = {
 
   /** Cria o treino e associa a lista de exercícios na ordem informada. */
   async criar(nome: string, exercicioIds: number[]): Promise<number> {
-    const db = getDb();
+    const db = await getDb();
     let treinoId = 0;
 
     await db.withTransactionAsync(async () => {
@@ -50,7 +50,7 @@ export const treinoRepository = {
   },
 
   async excluir(treinoId: number): Promise<void> {
-    const db = getDb();
+    const db = await getDb();
     await db.runAsync("DELETE FROM treinos WHERE id = ?", treinoId);
   },
 };

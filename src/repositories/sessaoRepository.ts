@@ -16,7 +16,7 @@ export interface EstatisticasGerais {
 
 export const sessaoRepository = {
   async iniciar(treinoId: number): Promise<number> {
-    const db = getDb();
+    const db = await getDb();
     const data = new Date().toISOString();
     const result = await db.runAsync(
       "INSERT INTO sessoes_treino (treino_id, data) VALUES (?, ?)",
@@ -33,7 +33,7 @@ export const sessaoRepository = {
     repeticoes: number,
     rpe?: number
   ): Promise<void> {
-    const db = getDb();
+    const db = await getDb();
     await db.runAsync(
       `INSERT INTO series_registradas (sessao_id, exercicio_id, carga, repeticoes, rpe)
        VALUES (?, ?, ?, ?, ?)`,
@@ -46,7 +46,7 @@ export const sessaoRepository = {
   },
 
   async listarSeriesDaSessao(sessaoId: number): Promise<SerieRegistrada[]> {
-    const db = getDb();
+    const db = await getDb();
     return db.getAllAsync<SerieRegistrada>(
       `SELECT id, sessao_id as sessaoId, exercicio_id as exercicioId,
               carga, repeticoes, rpe
@@ -56,7 +56,7 @@ export const sessaoRepository = {
   },
 
   async listarHistorico(limite = 50): Promise<SessaoComTreino[]> {
-    const db = getDb();
+    const db = await getDb();
     return db.getAllAsync<SessaoComTreino>(
       `SELECT s.id, s.treino_id as treinoId, s.data, t.nome as treinoNome,
               (SELECT COUNT(*) FROM series_registradas WHERE sessao_id = s.id) as totalSeries
@@ -70,7 +70,7 @@ export const sessaoRepository = {
 
   /** Totais gerais de séries, repetições e volume, mais a maior carga já registrada. */
   async estatisticasGerais(): Promise<EstatisticasGerais> {
-    const db = getDb();
+    const db = await getDb();
     const [totais] = await db.getAllAsync<{
       totalSeries: number;
       totalReps: number;
@@ -99,7 +99,7 @@ export const sessaoRepository = {
 
   /** Progressão de carga máxima por sessão, pra um exercício específico. */
   async progressaoPorExercicio(exercicioId: number): Promise<PontoProgressao[]> {
-    const db = getDb();
+    const db = await getDb();
     return db.getAllAsync<PontoProgressao>(
       `SELECT s.data as data, MAX(sr.carga) as cargaMaxima
        FROM series_registradas sr

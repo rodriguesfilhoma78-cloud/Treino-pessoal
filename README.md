@@ -33,8 +33,10 @@ precisam estar na mesma rede; se não conectar, use `npm run start:tunnel`.
 > Expo lançar um SDK novo e o Expo Go disser que o projeto é incompatível, atualize com
 > `npx expo install expo@latest` seguido de `npx expo install --fix` e rode `npm run check`.
 
-> **Web:** `npm run web` abre a interface, mas o `expo-sqlite` não funciona no navegador, então
-> as telas que leem o banco falham. Use celular ou emulador.
+> **Web:** `npm run web` abre o app no navegador. O banco na web usa SQLite em WebAssembly e
+> precisa de `SharedArrayBuffer`, liberado pelos cabeçalhos COOP/COEP: o `metro.config.js` os
+> envia no servidor de desenvolvimento e `public/coi-serviceworker.js` cobre hosts que não
+> deixam configurar cabeçalhos (ex.: GitHub Pages). Os dados ficam no próprio navegador.
 
 ## Scripts
 
